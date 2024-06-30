@@ -9,6 +9,7 @@ import (
 
 	"dafny-server/compiler"
 	"dafny-server/endpoints"
+	"dafny-server/run"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -18,6 +19,10 @@ func main() {
 	c, err := compiler.StartCompilerService()
 	if err != nil {
 		panic(fmt.Sprintf("Error starting compiler service: %s", err.Error()))
+	}
+	r, err := run.StartRunService()
+	if err != nil {
+		panic(fmt.Sprintf("Error starting run service: %s", err.Error()))
 	}
   
 	port := os.Getenv("PORT")
@@ -33,6 +38,7 @@ func main() {
 
 	e.GET("/health", endpoints.HandleHealth(c))
 	e.POST("/compile", endpoints.HandleCompile(c))
+	e.POST("/run", endpoints.HandleRun(r))
 
 	e.Logger.Fatal(e.Start(":" + port))
 
