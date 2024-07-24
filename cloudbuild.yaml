@@ -1,0 +1,4 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  script: |
+    gcloud run deploy cloudrunservice --image us-west2-docker.pkg.dev/axial-crane-428023-j9/dafny-server/dafny-server:latest  --region us-west2 --platform managed --allow-unauthenticated

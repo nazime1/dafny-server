@@ -18,7 +18,7 @@ func runAtTmp() (string, error, int) {
 		}
 		filePaths = append(filePaths, "/tmp/dafny-server/"+f.Name())
 	}
-	cmd := exec.Command("dafny run --no-verify", filePaths...)
+	cmd := exec.Command("dafny", filePaths...)
 	stdout, err := cmd.Output()
 	return string(stdout), err, http.StatusOK //output ok status if dafny fails because it is supposed to fail on bad code
 }
